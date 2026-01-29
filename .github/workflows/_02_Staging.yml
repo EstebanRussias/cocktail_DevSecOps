@@ -10,7 +10,7 @@ jobs:
   Display_Data:
     runs-on: ubuntu-latest
     steps: 
-      -run: env | sort
+      - run: env | sort
   
   Build_Push_Docker:
     if: ${{ github.ref_name == 'develop' }} 
