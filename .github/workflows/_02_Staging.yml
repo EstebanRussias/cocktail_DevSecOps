@@ -16,7 +16,7 @@ jobs:
     if: ${{ github.ref_name == 'develop' }} 
     uses: ./.github/workflows/z_Docke-Ghcr.yml 
     secrets: inherit
-    whith:
+    with:
       docker-mode: canary
   
   # Trivy_Scan:
