@@ -1,0 +1,24 @@
+name: 02 - 1 - Staging - Docker GHCR
+
+on:
+  workflow_call:
+    inputs: 
+      docker-mode:
+        required: false
+        type: string
+        default: ""
+
+env: 
+  REGISTERY: ghcr.io
+  USERNAME: ${{ github.actor}}
+  IMAGE_NAME: ${{ github.repository }}  #orga/repo
+
+jobs:
+  Display_Data:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "Docker Registery: ${{ env.REGISTERY }}"
+          echo "Docker Username: ${{ env.USERNAME }}"
+          echo "Docker Registery: ${{ env.IMAGE_NAME }}"
+          echo "Docker Registery: ${{ inputs.docker-mode }}"
