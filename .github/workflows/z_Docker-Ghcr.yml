@@ -36,7 +36,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Down case Image Name
-        run: echo "IMAGE_NAME_LOWER=${GITHUB_REPOPOSITORY,,}" >> ${GITHUB_ENV}
+        run: echo "IMAGE_NAME_LOWER=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
       
       - name: Back Build and push Docker image
         uses: docker/build-push-action@v4
