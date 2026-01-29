@@ -26,8 +26,10 @@ jobs:
   
   Build_Push_Docker:
     runs-on: ubuntu-latest
-
     steps: 
+      - name: Checkout repository
+        uses: actions/checkout@v3
+ 
       - name: Log in to Github Container Registery
         uses: docker/login-action@v3
         with: 
