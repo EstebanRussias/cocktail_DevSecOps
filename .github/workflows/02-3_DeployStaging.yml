@@ -87,6 +87,9 @@ jobs:
       - name: 08--- Checkout
         uses: actions/checkout@v3
 
+      - name: xx--- Test
+        run: cp ./_tools/docker/docker-compose.yml . 
+
       - name: 09--- Update compose file
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -95,8 +98,8 @@ jobs:
           username: ${{secrets.AZURE_VM_LOGIN}}
           password: ${{secrets.AZURE_VM_PASSWORD}}
 
-          source: "./_tools/docker/docker-compose.yml"
-          target: "./docker-compose.yml"
+          source: "./docker-compose.yml"
+          target: "."
       
       - name: 10--- Downcase Image Name
         run: echo "IMAGE_NAME_LOWER=${GITHUB_REPOSITORY,,}" >> ${GITHUB_ENV}
