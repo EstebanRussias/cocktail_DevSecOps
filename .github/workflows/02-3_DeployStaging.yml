@@ -28,7 +28,7 @@ jobs:
             az group create --name ${{env.RessourceGroupName}} --location ${{env.RessourceGroupLocation}}
     
       - name: 03--- Azure CLI Deploy Azure Ressource Management (ARM)
-        uses: azure/CLI@v2
+        uses: azure/arm-deploy@v2
         with:
           ressourceGroupName: ${{env.RessourceGroupName}}
           scope: resourcegroup
@@ -44,8 +44,8 @@ jobs:
         uses: azure/CLI@v2
         with:
           inlineScript: |
-            az network nsg rule create --resource-group ${{env.ResourceGroupName}} --nsg-name SecGroupNet --name PortBack-12000 --priority 100 --direction Inbound --access Allow --protocol Tcp --source-address-prefixes "*" --source-port-ranges "*" --destination-address-prefixes "*" --destination-port-ranges 12000
-            az network nsg rule create --resource-group ${{env.ResourceGroupName}} --nsg-name SecGroupNet --name PortFront-80 --priority 101 --direction Inbound --access Allow --protocol Tcp --source-address-prefixes "*" --source-port-ranges "*" --destination-address-prefixes "*" --destination-port-ranges 80
+            az network nsg rule create --resource-group ${{env.RessourceGroupName}} --nsg-name SecGroupNet --name PortBack-12000 --priority 100 --direction Inbound --access Allow --protocol Tcp --source-address-prefixes "*" --source-port-ranges "*" --destination-address-prefixes "*" --destination-port-ranges 12000
+            az network nsg rule create --resource-group ${{env.RessourceGroupName}} --nsg-name SecGroupNet --name PortFront-80 --priority 101 --direction Inbound --access Allow --protocol Tcp --source-address-prefixes "*" --source-port-ranges "*" --destination-address-prefixes "*" --destination-port-ranges 80
  
       - name: 05--- Get Public IP et créer règle 
         if: success()
@@ -53,8 +53,8 @@ jobs:
         with:
           inlineScript: |
             #!/bin/bash
-            az vm show -d -g ${{env.ResourceGroupName}} -n VmProject-DevSecOps-staging-vm --query publicIps -o tsv
-            echo "AZURE_VM_IP=$(az vm show -d -g ${{env.ResourceGroupName}} -n VmProject-DevSecOps-staging-vm --query publicIps -o tsv)" >> $GITHUB_ENV  
+            az vm show -d -g ${{env.RessourceGroupName}} -n VmProject-DevSecOps-staging-vm --query publicIps -o tsv
+            echo "AZURE_VM_IP=$(az vm show -d -g ${{env.RessourceGroupName}} -n VmProject-DevSecOps-staging-vm --query publicIps -o tsv)" >> $GITHUB_ENV  
 
       - name: 06--- Install Docker on VM
         uses: appleboy/ssh-action@v1.0.3
