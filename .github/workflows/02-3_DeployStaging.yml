@@ -90,6 +90,16 @@ jobs:
       - name: xx--- Test
         run: cp ./_tools/docker/docker-compose.yml . 
 
+      - name: 08.5--- Clean existing compose file
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{env.AZURE_VM_IP}}
+          port: ${{secrets.AZURE_PORT}} 
+          username: ${{secrets.AZURE_VM_LOGIN}}
+          password: ${{secrets.AZURE_VM_PASSWORD}}
+          script: |
+            rm -f docker-compose.yml
+
       - name: 09--- Update compose file
         uses: appleboy/scp-action@v0.1.7
         with:
